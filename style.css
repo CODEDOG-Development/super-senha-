@@ -194,20 +194,19 @@ h1 {
   width: var(--tam);
   height: var(--tam);
   border-radius: 50%;
-  border: 3px solid var(--borda-pino);
   /* brilho leve no topo dá volume sem escurecer a cor */
   box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.35);
 }
 
+/* Só o espaço vazio tem borda (tracejada), para mostrar onde a cor entra */
 .pino.vazio {
   background: var(--slot-vazio);
-  border-style: dashed;
+  border: 3px dashed var(--borda-pino);
   box-shadow: none;
 }
 
 .pino.pequeno {
   --tam: clamp(28px, 6vw, 40px); /* pinos do histórico */
-  border-width: 2px;
 }
 
 /* =========================================================
@@ -264,7 +263,6 @@ h1 {
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid var(--borda-pino);
 }
 
 .btn-cor:disabled {
