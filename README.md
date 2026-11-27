@@ -6,15 +6,25 @@ colaboradores precisam juntar o que cada um percebeu para descobri-la.
 
 ## Como jogar
 
-1. O facilitador define o **tempo de exibição** (padrão: 15 s) e o **número de tentativas** (padrão: 10).
-2. Ao iniciar, 5 cores diferentes são sorteadas entre as 7 disponíveis:
-   Vermelho, Azul, Amarelo, Verde, Rosa, Preto e Marrom.
+1. O facilitador escolhe o **nível** ou ajusta cada regra à mão (vira "Personalizado").
+2. A senha é sorteada entre as 7 cores: Vermelho, Azul, Amarelo, Verde, Rosa, Preto e Marrom.
 3. A senha fica na tela pelo tempo definido e depois some.
 4. A equipe diz as cores em sequência e o facilitador digita (clique ou teclas **1 a 7**).
 5. Ao conferir, aparecem os pinos de resposta:
    - **Preto**: acertou a cor e a posição
    - **Branco**: acertou a cor, mas está em outra posição
-6. A rodada termina quando a equipe acerta ou as tentativas acabam. Há perguntas de reflexão para o DDS no final.
+6. A rodada termina quando a equipe acerta ou as tentativas acabam.
+
+## Níveis
+
+| Nível   | Exibição | Tentativas | Cores | Repetição | Sequência | Tempo por tentativa |
+|---------|----------|------------|-------|-----------|-----------|---------------------|
+| Fácil   | 15 s     | 10         | 5     | Não       | Não       | Livre               |
+| Médio   | 10 s     | 8          | 5     | Sim       | Não       | Livre               |
+| Difícil | 6 s      | 6          | 6     | Sim       | Sim       | 60 s                |
+
+- **Sequência:** as cores aparecem uma por vez, cada uma na sua posição.
+- **Tempo por tentativa:** se acabar, a tentativa é perdida e aparece como "Tempo esgotado" no histórico.
 
 **Atalhos:** `1`–`7` escolhem a cor · `Backspace` apaga · `Enter` confere.
 O botão no topo alterna entre **tema claro e escuro**.

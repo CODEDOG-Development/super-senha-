@@ -126,7 +126,8 @@ h1 {
   font-size: 0.95rem;
 }
 
-.campos input {
+.campos input,
+.campos select {
   width: 12rem;
   padding: 0.6rem 0.8rem;
   font-size: 1.1rem;
@@ -161,9 +162,35 @@ h1 {
 /* Contorno visível ao navegar pelo teclado (Tab) */
 .btn:focus-visible,
 .btn-cor:focus-visible,
-.campos input:focus-visible {
+.campos input:focus-visible,
+.campos select:focus-visible,
+.opcao input:focus-visible {
   outline: 3px solid var(--primaria);
   outline-offset: 2px;
+}
+
+/* Caixas de marcar (cores repetidas / sequência) */
+.opcoes {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+}
+
+.opcao {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.95rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.opcao input {
+  width: 1.2rem;
+  height: 1.2rem;
+  accent-color: var(--primaria); /* pinta a caixinha com a cor da página */
+  cursor: pointer;
 }
 
 .btn-primario {
@@ -231,6 +258,32 @@ h1 {
   font-size: 2.5rem;
   font-weight: 800;
   font-variant-numeric: tabular-nums; /* números com mesma largura: não "pulam" */
+}
+
+/* Relógio de cada tentativa */
+.relogio {
+  font-size: 1.75rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Últimos 10 segundos: fica vermelho e pisca */
+.relogio.alerta {
+  color: #ff3b30;
+  animation: piscar 1s infinite;
+}
+
+@keyframes piscar {
+  50% {
+    opacity: 0.4;
+  }
+}
+
+/* Quem configurou o sistema para reduzir animações não vê o pisca-pisca */
+@media (prefers-reduced-motion: reduce) {
+  .relogio.alerta {
+    animation: none;
+  }
 }
 
 /* =========================================================
@@ -360,6 +413,14 @@ h1 {
   margin-right: 0.2rem;
 }
 
+/* Aparece no lugar dos pinos de resposta quando o tempo da tentativa acaba */
+.esgotado {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: #ff3b30;
+  white-space: nowrap;
+}
+
 .item-legenda {
   display: inline-flex;
   align-items: center;
@@ -368,30 +429,8 @@ h1 {
 }
 
 /* =========================================================
-   9. RESULTADO E RODAPÉ
+   9. RODAPÉ
    ========================================================= */
-.reflexao {
-  width: 100%;
-  max-width: 600px;
-  text-align: left;
-  padding: 1rem 1.25rem;
-  border-left: 4px solid var(--primaria);
-  border-radius: 8px;
-  background: var(--fundo);
-}
-
-.reflexao h3 {
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-}
-
-.reflexao ul {
-  padding-left: 1.2rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-}
-
 .rodape {
   padding: 1rem;
   text-align: center;
@@ -408,7 +447,12 @@ h1 {
     align-items: flex-start;
   }
 
-  .campos input {
+  .campos label {
+    width: 100%;
+  }
+
+  .campos input,
+  .campos select {
     width: 100%;
   }
 }

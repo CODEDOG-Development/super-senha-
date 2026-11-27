@@ -24,8 +24,19 @@
     <!-- ===== TELA 1: CONFIGURAÇÃO DA RODADA ===== -->
     <section id="tela-config" class="cartao">
       <h2>Configuração da rodada</h2>
-      <p class="regra">Serão sorteadas 5 cores diferentes entre as 7 disponíveis.</p>
+
+      <!-- Escolher um nível preenche os campos abaixo.
+           Mexer em qualquer campo muda o nível para "Personalizado". -->
       <div class="campos">
+        <label>
+          Nível
+          <select id="select-nivel">
+            <option value="facil">Fácil</option>
+            <option value="medio">Médio</option>
+            <option value="dificil">Difícil</option>
+            <option value="personalizado">Personalizado</option>
+          </select>
+        </label>
         <label>
           Tempo de exibição (segundos)
           <input type="number" id="input-tempo" min="3" max="120" value="15">
@@ -34,13 +45,39 @@
           Número de tentativas
           <input type="number" id="input-tentativas" min="1" max="20" value="10">
         </label>
+        <label>
+          Cores na senha
+          <select id="select-tamanho">
+            <option value="5">5 cores</option>
+            <option value="6">6 cores</option>
+          </select>
+        </label>
+        <label>
+          Tempo por tentativa (s · 0 = livre)
+          <input type="number" id="input-tempo-tentativa" min="0" max="300" value="0">
+        </label>
       </div>
+
+      <div class="opcoes">
+        <label class="opcao">
+          <input type="checkbox" id="check-repetidas">
+          Permitir cores repetidas na senha
+        </label>
+        <label class="opcao">
+          <input type="checkbox" id="check-sequencia">
+          Mostrar a senha em sequência (uma cor por vez)
+        </label>
+      </div>
+
+      <!-- Resumo das regras, atualizado pelo JavaScript -->
+      <p id="texto-regra" class="regra"></p>
+
       <button id="btn-iniciar" class="btn btn-primario" type="button">Iniciar rodada</button>
     </section>
 
     <!-- ===== TELA 2: MEMORIZAÇÃO (a senha aparece por alguns segundos) ===== -->
     <section id="tela-memorizar" class="cartao oculto">
-      <h2>Memorize a senha!</h2>
+      <h2 id="titulo-memorizar">Memorize a senha!</h2>
       <div id="senha-exibida" class="linha-pinos"></div>
       <div class="barra"><div id="barra-progresso" class="barra-progresso"></div></div>
       <p class="contador"><span id="contador">15</span> s</p>
@@ -52,14 +89,6 @@
       <h2 id="titulo-resultado"></h2>
       <p id="texto-resultado"></p>
       <div id="senha-revelada" class="linha-pinos"></div>
-      <div class="reflexao">
-        <h3>Para conversar no DDS</h3>
-        <ul>
-          <li>O que cada um lembrou? A senha só ficou completa somando a percepção de todos.</li>
-          <li>O tempo foi suficiente? No dia a dia, um risco também pode aparecer e sumir rápido.</li>
-          <li>As pistas corrigiram o rumo, como um quase-acidente comunicado a tempo.</li>
-        </ul>
-      </div>
       <button id="btn-nova" class="btn btn-primario" type="button">Nova rodada</button>
     </section>
 
@@ -70,6 +99,11 @@
       <div id="area-palpite" class="area-palpite">
         <h2>Qual é a senha?</h2>
         <p>Tentativa <strong id="num-tentativa">1</strong> de <strong id="total-tentativas">10</strong></p>
+
+        <!-- Relógio da tentativa: só aparece quando há tempo por tentativa -->
+        <p id="relogio-tentativa" class="relogio oculto">
+          ⏱ <span id="tempo-tentativa">60</span> s
+        </p>
 
         <div id="palpite-atual" class="linha-pinos"></div>
 
@@ -82,6 +116,7 @@
           <button id="btn-conferir" class="btn btn-primario" type="button" disabled>Conferir</button>
         </div>
 
+        <p id="info-regras" class="regra"></p>
         <p class="legenda">
           <span class="item-legenda"><span class="pino-resposta preto"></span> Preto: cor e posição certas</span>
           <span class="item-legenda"><span class="pino-resposta branco"></span> Branco: só a cor certa</span>
