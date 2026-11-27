@@ -195,8 +195,8 @@ h1 {
   height: var(--tam);
   border-radius: 50%;
   border: 3px solid var(--borda-pino);
-  /* sombras internas dão efeito de pino 3D */
-  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.25), inset 0 4px 8px rgba(255, 255, 255, 0.3);
+  /* brilho leve no topo dá volume sem escurecer a cor */
+  box-shadow: inset 0 4px 6px rgba(255, 255, 255, 0.35);
 }
 
 .pino.vazio {

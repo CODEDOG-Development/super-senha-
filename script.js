@@ -4,13 +4,13 @@
 
 // As 7 cores disponíveis. A posição na lista (0 a 6) é o "índice" da cor.
 const CORES = [
-  { nome: 'Vermelho', hex: '#d32f2f' },
-  { nome: 'Azul', hex: '#1e88e5' },
-  { nome: 'Amarelo', hex: '#fbc02d' },
-  { nome: 'Verde', hex: '#43a047' },
-  { nome: 'Rosa', hex: '#f48fb1' },
-  { nome: 'Preto', hex: '#1a1a1a' },
-  { nome: 'Marrom', hex: '#6d4c41' },
+  { nome: 'Vermelho', hex: '#ff0000' },
+  { nome: 'Azul', hex: '#0050ff' },
+  { nome: 'Amarelo', hex: '#ffc000' },
+  { nome: 'Verde', hex: '#33cc33' },
+  { nome: 'Rosa', hex: '#ff00ff' },
+  { nome: 'Preto', hex: '#000000' },
+  { nome: 'Marrom', hex: '#8b4513' },
 ];
 
 const TAMANHO_SENHA = 5; // quantas cores vão para a senha secreta
