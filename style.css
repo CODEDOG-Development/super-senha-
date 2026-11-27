@@ -1,0 +1,416 @@
+/* =========================================================
+   1. VARIÁVEIS DE COR (TEMA CLARO E ESCURO)
+   Todas as cores da página vêm destas variáveis.
+   Trocar o tema = trocar só os valores, sem mexer no resto.
+   ========================================================= */
+:root {
+  --fundo: #f4f6f9;
+  --cartao: #ffffff;
+  --texto: #1d2433;
+  --texto-suave: #5b6478;
+  --borda: #d9dee8;
+  --primaria: #f57c00;          /* laranja: cor associada à segurança */
+  --primaria-texto: #ffffff;
+  --slot-vazio: #e9edf3;
+  --borda-pino: rgba(0, 0, 0, 0.25);
+  --sombra: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Quando o <html> tiver data-tema="escuro", estes valores substituem os de cima */
+[data-tema="escuro"] {
+  --fundo: #11151c;
+  --cartao: #1b212c;
+  --texto: #eef1f6;
+  --texto-suave: #9aa4b5;
+  --borda: #2e3746;
+  --primaria: #ff9800;
+  --primaria-texto: #11151c;
+  --slot-vazio: #262e3b;
+  --borda-pino: rgba(255, 255, 255, 0.4); /* borda clara para o pino Preto aparecer no fundo escuro */
+  --sombra: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+* {
+  box-sizing: border-box; /* padding e borda entram na largura total */
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s, color 0.3s; /* troca de tema suave */
+}
+
+/* Classe usada pelo JS para esconder telas */
+.oculto {
+  display: none !important;
+}
+
+/* =========================================================
+   3. CABEÇALHO, CONTEÚDO E CARTÕES
+   ========================================================= */
+.topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem clamp(1rem, 4vw, 2.5rem);
+  border-bottom: 1px solid var(--borda);
+}
+
+h1 {
+  font-size: clamp(1.5rem, 4vw, 2.25rem); /* cresce com a tela, entre 1.5 e 2.25rem */
+  color: var(--primaria);
+}
+
+.subtitulo {
+  color: var(--texto-suave);
+  font-size: 0.95rem;
+}
+
+.conteudo {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 4vw, 2.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  flex: 1; /* empurra o rodapé para baixo */
+}
+
+.cartao,
+.area-palpite {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.cartao {
+  background: var(--cartao);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  box-shadow: var(--sombra);
+}
+
+.area-palpite {
+  width: 100%;
+}
+
+/* =========================================================
+   4. FORMULÁRIO E BOTÕES
+   ========================================================= */
+.campos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.campos label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.campos input {
+  width: 12rem;
+  padding: 0.6rem 0.8rem;
+  font-size: 1.1rem;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+.btn {
+  font: inherit;
+  font-weight: 600;
+  padding: 0.7rem 1.3rem;
+  border-radius: 10px;
+  border: 1px solid var(--borda);
+  background: var(--cartao);
+  color: var(--texto);
+  cursor: pointer;
+  transition: transform 0.1s, opacity 0.2s;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Contorno visível ao navegar pelo teclado (Tab) */
+.btn:focus-visible,
+.btn-cor:focus-visible,
+.campos input:focus-visible {
+  outline: 3px solid var(--primaria);
+  outline-offset: 2px;
+}
+
+.btn-primario {
+  background: var(--primaria);
+  color: var(--primaria-texto);
+  border-color: transparent;
+}
+
+.btn-discreto {
+  background: transparent;
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+  padding: 0.4rem 0.8rem;
+}
+
+/* =========================================================
+   5. PINOS (as bolinhas coloridas)
+   ========================================================= */
+.linha-pinos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(0.5rem, 2vw, 1rem);
+}
+
+.pino {
+  --tam: clamp(44px, 10vw, 72px); /* tamanho do pino grande */
+  width: var(--tam);
+  height: var(--tam);
+  border-radius: 50%;
+  border: 3px solid var(--borda-pino);
+  /* sombras internas dão efeito de pino 3D */
+  box-shadow: inset 0 -6px 10px rgba(0, 0, 0, 0.25), inset 0 4px 8px rgba(255, 255, 255, 0.3);
+}
+
+.pino.vazio {
+  background: var(--slot-vazio);
+  border-style: dashed;
+  box-shadow: none;
+}
+
+.pino.pequeno {
+  --tam: clamp(28px, 6vw, 40px); /* pinos do histórico */
+  border-width: 2px;
+}
+
+/* =========================================================
+   6. CONTAGEM REGRESSIVA
+   ========================================================= */
+.barra {
+  width: 100%;
+  max-width: 480px;
+  height: 10px;
+  border-radius: 99px;
+  background: var(--slot-vazio);
+  overflow: hidden;
+}
+
+.barra-progresso {
+  width: 100%;
+  height: 100%;
+  background: var(--primaria);
+}
+
+.contador {
+  font-size: 2.5rem;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums; /* números com mesma largura: não "pulam" */
+}
+
+/* =========================================================
+   7. PALETA DE CORES
+   ========================================================= */
+.paleta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.btn-cor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  min-width: 78px;
+  padding: 0.5rem 0.6rem;
+  border-radius: 12px;
+  border: 1px solid var(--borda);
+  background: var(--fundo);
+  color: var(--texto);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.btn-cor .amostra {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--borda-pino);
+}
+
+.btn-cor:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.acoes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+}
+
+.regra,
+.dica,
+.legenda {
+  color: var(--texto-suave);
+  font-size: 0.85rem;
+}
+
+.legenda {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem 0.6rem;
+}
+
+/* =========================================================
+   8. HISTÓRICO E PINOS DE RESPOSTA
+   ========================================================= */
+.titulo-historico {
+  font-size: 1rem;
+  color: var(--texto-suave);
+}
+
+.historico {
+  list-style: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.linha-historico {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.6rem, 3vw, 1.5rem);
+  padding: 0.6rem;
+  border-radius: 12px;
+  border: 1px solid var(--borda);
+  background: var(--fundo);
+}
+
+.num {
+  min-width: 2ch;
+  font-weight: 700;
+  color: var(--texto-suave);
+}
+
+/* 5 furinhos em grade de 3 colunas sobre uma plaquinha cinza-clara,
+   como no tabuleiro. A plaquinha é igual nos dois temas, assim o
+   pino preto e o branco aparecem bem tanto no claro quanto no escuro. */
+.resposta {
+  display: grid;
+  grid-template-columns: repeat(3, 16px);
+  gap: 5px;
+  padding: 6px;
+  border-radius: 8px;
+  background: #d5dae3;
+}
+
+.pino-resposta {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #aab2c0; /* furo vazio */
+}
+
+.pino-resposta.branco {
+  background: #ffffff;
+  box-shadow: 0 0 0 1px #8c95a5;
+}
+
+.pino-resposta.preto {
+  background: #000000;
+}
+
+/* Na legenda, um anel cinza imita a plaquinha */
+.legenda .pino-resposta {
+  box-shadow: 0 0 0 3px #d5dae3;
+  margin-right: 0.2rem;
+}
+
+.item-legenda {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+/* =========================================================
+   9. RESULTADO E RODAPÉ
+   ========================================================= */
+.reflexao {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+  padding: 1rem 1.25rem;
+  border-left: 4px solid var(--primaria);
+  border-radius: 8px;
+  background: var(--fundo);
+}
+
+.reflexao h3 {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+}
+
+.reflexao ul {
+  padding-left: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.rodape {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--texto-suave);
+}
+
+/* =========================================================
+   10. TELAS PEQUENAS (celular)
+   ========================================================= */
+@media (max-width: 520px) {
+  .topo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .campos input {
+    width: 100%;
+  }
+}

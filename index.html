@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<!-- data-tema guarda o tema atual (claro/escuro). O CSS lê esse atributo para trocar as cores. -->
+<html lang="pt-BR" data-tema="claro">
+<head>
+  <meta charset="UTF-8">
+  <!-- Faz a página se ajustar à largura do celular, notebook ou projetor -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Super Senha – DDS</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ===== CABEÇALHO: título e botão de tema ===== -->
+  <header class="topo">
+    <div>
+      <h1>Super Senha</h1>
+      <p class="subtitulo">DDS dinâmico · Percepção de risco e trabalho em equipe</p>
+    </div>
+    <button id="btn-tema" class="btn" type="button" aria-label="Alternar tema claro ou escuro">🌙 Escuro</button>
+  </header>
+
+  <main class="conteudo">
+
+    <!-- ===== TELA 1: CONFIGURAÇÃO DA RODADA ===== -->
+    <section id="tela-config" class="cartao">
+      <h2>Configuração da rodada</h2>
+      <p class="regra">Serão sorteadas 5 cores diferentes entre as 7 disponíveis.</p>
+      <div class="campos">
+        <label>
+          Tempo de exibição (segundos)
+          <input type="number" id="input-tempo" min="3" max="120" value="15">
+        </label>
+        <label>
+          Número de tentativas
+          <input type="number" id="input-tentativas" min="1" max="20" value="10">
+        </label>
+      </div>
+      <button id="btn-iniciar" class="btn btn-primario" type="button">Iniciar rodada</button>
+    </section>
+
+    <!-- ===== TELA 2: MEMORIZAÇÃO (a senha aparece por alguns segundos) ===== -->
+    <section id="tela-memorizar" class="cartao oculto">
+      <h2>Memorize a senha!</h2>
+      <div id="senha-exibida" class="linha-pinos"></div>
+      <div class="barra"><div id="barra-progresso" class="barra-progresso"></div></div>
+      <p class="contador"><span id="contador">15</span> s</p>
+      <button id="btn-pular" class="btn" type="button">Esconder agora</button>
+    </section>
+
+    <!-- ===== TELA 3: RESULTADO (aparece no fim, acima do histórico) ===== -->
+    <section id="tela-resultado" class="cartao oculto">
+      <h2 id="titulo-resultado"></h2>
+      <p id="texto-resultado"></p>
+      <div id="senha-revelada" class="linha-pinos"></div>
+      <div class="reflexao">
+        <h3>Para conversar no DDS</h3>
+        <ul>
+          <li>O que cada um lembrou? A senha só ficou completa somando a percepção de todos.</li>
+          <li>O tempo foi suficiente? No dia a dia, um risco também pode aparecer e sumir rápido.</li>
+          <li>As pistas corrigiram o rumo, como um quase-acidente comunicado a tempo.</li>
+        </ul>
+      </div>
+      <button id="btn-nova" class="btn btn-primario" type="button">Nova rodada</button>
+    </section>
+
+    <!-- ===== TELA 4: JOGO (palpites + histórico) ===== -->
+    <section id="tela-jogo" class="cartao oculto">
+
+      <!-- Área de digitação do palpite: some quando a rodada termina -->
+      <div id="area-palpite" class="area-palpite">
+        <h2>Qual é a senha?</h2>
+        <p>Tentativa <strong id="num-tentativa">1</strong> de <strong id="total-tentativas">10</strong></p>
+
+        <div id="palpite-atual" class="linha-pinos"></div>
+
+        <!-- Os 7 botões de cor são criados pelo JavaScript -->
+        <div id="paleta" class="paleta"></div>
+
+        <div class="acoes">
+          <button id="btn-apagar" class="btn" type="button">⌫ Apagar</button>
+          <button id="btn-limpar" class="btn" type="button">Limpar</button>
+          <button id="btn-conferir" class="btn btn-primario" type="button" disabled>Conferir</button>
+        </div>
+
+        <p class="legenda">
+          <span class="item-legenda"><span class="pino-resposta preto"></span> Preto: cor e posição certas</span>
+          <span class="item-legenda"><span class="pino-resposta branco"></span> Branco: só a cor certa</span>
+        </p>
+        <p class="dica">Atalhos: teclas 1 a 7 escolhem a cor · Backspace apaga · Enter confere</p>
+        <button id="btn-revelar" class="btn btn-discreto" type="button">Encerrar e revelar senha</button>
+      </div>
+
+      <h3 class="titulo-historico">Tentativas da equipe</h3>
+      <!-- Cada palpite conferido vira um item desta lista -->
+      <ol id="historico" class="historico"></ol>
+    </section>
+
+  </main>
+
+  <footer class="rodape">Desenvolvido por CodeDog</footer>
+
+  <!-- O script fica no fim para que todo o HTML já exista quando ele rodar -->
+  <script src="script.js"></script>
+</body>
+</html>
